@@ -20,12 +20,15 @@ public class DemoManualNewsCrawler extends BreadthCrawler {
         super(crawlPath, autoParse);
         // add 5 start pages and set their type to "list"
         //"list" is not a reserved word, you can use other string instead
-        this.addSeedAndReturn("https://blog.github.com/").type("list");
-        for(int pageIndex = 2; pageIndex <= 5; pageIndex++) {
+        //this.addSeedAndReturn("https://blog.github.com/").type("list");
+        this.addSeedAndReturn("http://www.hotelaah.com/liren/index.html").type("list");
+
+        /*for (int pageIndex = 2; pageIndex <= 5; pageIndex++) {
             String seedUrl = String.format("https://blog.github.com/page/%d/", pageIndex);
             this.addSeed(seedUrl, "list");
-        }
-
+        }*/
+        String seedUrl = "http://www.hotelaah.com/liren/anhui_hefei_yaohai.html";
+        this.addSeed(seedUrl, "list");
         setThreads(50);
         getConf().setTopN(100);
 
@@ -41,7 +44,7 @@ public class DemoManualNewsCrawler extends BreadthCrawler {
             /*if type is "list"*/
             /*detect content page by css selector and mark their types as "content"*/
             next.add(page.links("h1.lh-condensed>a")).type("content");
-        }else if(page.matchType("content")) {
+        } else if (page.matchType("content")) {
             /*if type is "content"*/
             /*extract title and content of news by css selector*/
             String title = page.select("h1[class=lh-condensed]").first().text();
@@ -63,7 +66,7 @@ public class DemoManualNewsCrawler extends BreadthCrawler {
 
         crawler.getConf().setExecuteInterval(5000);
 
-        crawler.getConf().set("title_prefix","PREFIX_");
+        crawler.getConf().set("title_prefix", "PREFIX_");
         crawler.getConf().set("content_length_limit", 20);
 
         /*start crawl with depth of 4*/

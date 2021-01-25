@@ -47,6 +47,7 @@ public class DemoCookieCrawler extends BreadthCrawler {
 
     }
 
+    @Override
     public void visit(Page page, CrawlDatums crawlDatums) {
         System.out.println(page.doc().title());
     }
